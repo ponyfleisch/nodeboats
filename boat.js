@@ -2,6 +2,8 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var motorR, motorL;
+var five = require("johnny-five");
+var Spark = require("spark-io");
 
 server.listen(80);
 
@@ -45,6 +47,7 @@ app.get('/', function (req, res) {
 io.on('connection', function (socket) {
 
   socket.on('orientation', function (data) {
+	console.log(data);
 
     if(data.l !== undefined && data.r !== undefined){
         motorL.start(data.l);
