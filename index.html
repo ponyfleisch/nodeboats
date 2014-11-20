@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+<p>
+  X: <span id="x"></span>
+</p>
+<p>
+  Y: <span id="y"></span>
+</p>
+<p>
+  Z: <span id="z"></span>
+</p>
+<script type="text/javascript">
+  $(function(){
+    window.ondevicemotion = function(event) {
+      $('#x').html(event.accelerationIncludingGravity.x);
+      $('#y').html(event.accelerationIncludingGravity.y);
+      $('#z').html(event.accelerationIncludingGravity.z);
+    }
+  });
+</script>
+</body>
+</html>
