@@ -1,22 +1,9 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var motorR, motorL;
 
 server.listen(80);
-
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
-});
-
-
-io.on('connection', function (socket) {
-
-  socket.on('orientation', function (data) {
-    console.log(data);
-  });
-
-});
-
 
 if (process.env.SPARK_TOKEN == undefined || process.env.SPARK_DEVICE_ID == undefined){
 
@@ -38,13 +25,33 @@ var board = new five.Board({
     })
 });
 
-board.on("ready", function() {
-    var led = new five.Led("D7");
+board.on("ready", function() {    
 
-    // This bit of js injects the led variable into the
-    // repl you get after this script finishes execution.
-    board.repl.inject({
-        led: led
+    motorR = new five.Motor({
+        pin: 'A6'
+    });
+
+    motorL = new five.Motor({
+        pin: 'A7'
     });
 
 });
+
+app.get('/', function (req, res) {
+  res.sendfile(__dirname + '/index.html');
+});
+
+
+io.on('connection', function (socket) {
+
+  socket.on('orientation', function (data) {
+
+    if(motorR !== undefined && motorL !== undefined){
+        
+    }
+
+  });
+
+});
+
+
