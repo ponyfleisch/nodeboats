@@ -22,14 +22,14 @@
   Z: <span id="z"></span>
 </p>
 
-<!--<script src="/socket.io/socket.io.js"></script>-->
-<!--<script>-->
-  <!--var socket = io('http://localhost');-->
-  <!--socket.on('news', function (data) {-->
-    <!--console.log(data);-->
-    <!--socket.emit('my other event', { my: 'data' });-->
-  <!--});-->
-<!--</script>-->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io('http://localhost');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+</script>
 
 <script type="text/javascript">
   var current = {
@@ -43,17 +43,13 @@
 
   $(function(){
     window.ondevicemotion = function(event) {
-//      $('#x').html(event.accelerationIncludingGravity.x);
-//      $('#y').html(event.accelerationIncludingGravity.y);
-//      $('#z').html(event.accelerationIncludingGravity.z);
-
       x = event.accelerationIncludingGravity.x;
       y = event.accelerationIncludingGravity.y;
       z = event.accelerationIncludingGravity.z;
 
-      $('#x').html(x);
-      $('#y').html(y);
-      $('#z').html(z);
+//      $('#x').html(x);
+//      $('#y').html(y);
+//      $('#z').html(z);
 
       absX = Math.abs(x);
       if(absX > 10){
@@ -84,15 +80,16 @@
     function send(){
       if(current.l != last.l || current.r != last.r) {
         // submit shit.
-        
-        $('#left').html(current.l);
-        $('#right').html(current.r);
 
+//        $('#left').html(current.l);
+//        $('#right').html(current.r);
+
+        socket.emit('orientation', current);
         last = current;
       }
     }
 
-    window.setInterval(send, 200);
+    window.setInterval(send, 330);
   });
 </script>
 </body>
