@@ -22,6 +22,15 @@
   Z: <span id="z"></span>
 </p>
 
+<!--<script src="/socket.io/socket.io.js"></script>-->
+<!--<script>-->
+  <!--var socket = io('http://localhost');-->
+  <!--socket.on('news', function (data) {-->
+    <!--console.log(data);-->
+    <!--socket.emit('my other event', { my: 'data' });-->
+  <!--});-->
+<!--</script>-->
+
 <script type="text/javascript">
   var current = {
     l: 0,
@@ -70,24 +79,20 @@
 
       current.l = l*speed;
       current.r = r*speed;
-
-      $('#left').html(current.l);
-      $('#right').html(current.r);
-
-    }
+    };
 
     function send(){
-      if(current.l != last.l || current.r != last.r){
+      if(current.l != last.l || current.r != last.r) {
         // submit shit.
+        
         $('#left').html(current.l);
         $('#right').html(current.r);
 
         last = current;
       }
-
-      window.setInterval(send, 200);
-
     }
+
+    window.setInterval(send, 200);
   });
 </script>
 </body>

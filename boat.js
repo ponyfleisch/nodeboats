@@ -46,8 +46,9 @@ io.on('connection', function (socket) {
 
   socket.on('orientation', function (data) {
 
-    if(motorR !== undefined && motorL !== undefined){
-        
+    if(data.l !== undefined && data.r !== undefined){
+        motorL.start(data.l);
+        motorR.start(data.r);
     }
 
   });
