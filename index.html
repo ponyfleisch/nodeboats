@@ -5,20 +5,68 @@
 </head>
 <body>
 <p>
-  X: <span id="x"></span>
+  Left: <span id="left"></span>
 </p>
 <p>
-  Y: <span id="y"></span>
-</p>
-<p>
-  Z: <span id="z"></span>
+  Right: <span id="right"></span>
 </p>
 <script type="text/javascript">
   $(function(){
+
+    var current = {
+      l: 0,
+      r: 0
+    };
+
+    var last = current;
+
+
     window.ondevicemotion = function(event) {
-      $('#x').html(event.accelerationIncludingGravity.x);
-      $('#y').html(event.accelerationIncludingGravity.y);
-      $('#z').html(event.accelerationIncludingGravity.z);
+
+      x = event.accelerationIncludingGravity.x;
+      y = event.accelerationIncludingGravity.y;
+      z = event.accelerationIncludingGravity.z;
+
+//      $('#x').html(x);
+//      $('#y').html(y);
+//      $('#z').html(z);
+
+      absX = Math.abs(x);
+      if(absX > 10){
+        absX = 10;
+      }
+
+      speed = 1;
+
+      if(y < 0){
+        speed = 1*(Math.abs(y)/10);
+      }
+
+      if(x > 0){
+        l = 100;
+        r = 100-(absX*10);
+      }else if(x < 0){
+        l = 100;
+        r = 100-(absX*10);
+      }else{
+        l = 100;
+        r = 100;
+      }
+
+      current.l = l*speed;
+      current.r = r*speed;
+
+    }
+
+    function send(){
+      if(current.l != last.l || current.r != last.r){
+        // submit shit.
+        $('#left').html(current.l);
+        $('#right').html(current.r);
+
+        last = current;
+      }
+
     }
   });
 </script>
