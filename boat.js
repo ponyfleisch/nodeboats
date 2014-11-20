@@ -33,6 +33,8 @@ var board = new five.Board({
 
 board.on("ready", function() {    
 
+    servo = new five.Servo("A1");
+
     motorR = new five.Motor({
         pin: 'A6'
     });
@@ -48,6 +50,7 @@ board.on("ready", function() {
             if(data.l !== undefined && data.r !== undefined){
                 motorL.start(data.l);
                 motorR.start(data.r);
+                servo.sweep();
             }
 
         });
