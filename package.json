@@ -15,7 +15,9 @@
   },
   "homepage": "https://github.com/ponyfleisch/nodeboats",
   "dependencies": {
+    "express": "^4.10.2",
     "johnny-five": "^0.8.27",
+    "socket.io": "^1.2.0",
     "spark": "^0.2.3",
     "spark-io": "^0.5.1"
   }
