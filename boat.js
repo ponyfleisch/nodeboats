@@ -7,6 +7,8 @@ var Spark = require("spark-io");
 
 server.listen(80);
 
+console.log('BARR');
+
 if (process.env.SPARK_TOKEN == undefined || process.env.SPARK_DEVICE_ID == undefined){
 
     var config = require('./config');
@@ -20,6 +22,8 @@ if (process.env.SPARK_TOKEN == undefined || process.env.SPARK_DEVICE_ID == undef
 
 }
 
+console.log(token);
+console.log(id);
 var board = new five.Board({
     io: new Spark({
         token: token,
@@ -37,6 +41,19 @@ board.on("ready", function() {
         pin: 'A7'
     });
 
+    io.on('connection', function (socket) {
+
+        socket.on('orientation', function (data) {
+
+            if(data.l !== undefined && data.r !== undefined){
+                motorL.start(data.l);
+                motorR.start(data.r);
+            }
+
+        });
+
+    });
+
 });
 
 app.get('/', function (req, res) {
@@ -44,18 +61,5 @@ app.get('/', function (req, res) {
 });
 
 
-io.on('connection', function (socket) {
-
-  socket.on('orientation', function (data) {
-	console.log(data);
-
-    if(data.l !== undefined && data.r !== undefined){
-        motorL.start(data.l);
-        motorR.start(data.r);
-    }
-
-  });
-
-});
 
 

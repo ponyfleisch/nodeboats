@@ -24,7 +24,7 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  var socket = io('http://localhost');
+  var socket = io();
   socket.on('news', function (data) {
     console.log(data);
     socket.emit('my other event', { my: 'data' });
@@ -37,7 +37,7 @@
     r: 0
   };
 
-  var last = current;
+  var last = {l: 0, r: 0};
 
 
 
@@ -73,23 +73,24 @@
         r = 100;
       }
 
-      current.l = l*speed;
-      current.r = r*speed;
+      current.l = l*speed*2.5;
+      current.r = r*speed*2.5;
     };
 
     function send(){
-      if(current.l != last.l || current.r != last.r) {
+      // console.log(current);
+//      if(current.l != last.l || current.r != last.r) {
         // submit shit.
 
-//        $('#left').html(current.l);
-//        $('#right').html(current.r);
+        $('#left').html(current.l);
+        $('#right').html(current.r);
 
         socket.emit('orientation', current);
         last = current;
       }
-    }
+//    }
 
-    window.setInterval(send, 330);
+    window.setInterval(send, 200);
   });
 </script>
 </body>
