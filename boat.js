@@ -44,13 +44,14 @@ board.on("ready", function() {
     });
 
     io.on('connection', function (socket) {
+        
+        servo.sweep();
 
         socket.on('orientation', function (data) {
 
             if(data.l !== undefined && data.r !== undefined){
                 motorL.start(data.l);
                 motorR.start(data.r);
-                servo.sweep();
             }
 
         });
