@@ -1,10 +1,25 @@
 var five = require("johnny-five");
 var Spark = require("spark-io");
+var token;
+var id;
+
+if (process.env.SPARK_TOKEN == undefined || process.env.SPARK_DEVICE_ID == undefined){
+
+    var config = require('./config');
+    token = config.token;
+    id = config.id;
+
+}else{
+
+    token = process.env.SPARK_TOKEN;
+    id = process.env.SPARK_DEVICE_ID;
+
+}
 
 var board = new five.Board({
     io: new Spark({
-        token: process.env.SPARK_TOKEN,
-        deviceId: process.env.SPARK_DEVICE_ID
+        token: token,
+        deviceId: id
     })
 });
 
