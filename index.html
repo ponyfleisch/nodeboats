@@ -11,16 +11,16 @@
   Right: <span id="right"></span>
 </p>
 <script type="text/javascript">
+  var current = {
+    l: 0,
+    r: 0
+  };
+
+  var last = current;
+
+
+
   $(function(){
-
-    var current = {
-      l: 0,
-      r: 0
-    };
-
-    var last = current;
-
-
     window.ondevicemotion = function(event) {
 
       x = event.accelerationIncludingGravity.x;
